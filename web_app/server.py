@@ -31,9 +31,13 @@ from src.metrics.eval_metrics import evaluate_all_metrics
 app = FastAPI(title="EDA Routing Congestion Heatmap Predictor")
 templates = Jinja2Templates(directory=os.path.join(current_dir, "templates"))
 
-# Load Model Checkpoint
-CKPT_PATH = os.path.join(root_dir, "outputs/checkpoints/best_congestion_unet.pt")
+# Load Model Checkpoint Candidates (supports both full and stripped weights)
+CKPT_CANDIDATES = [
+    os.path.join(root_dir, "outputs/checkpoints/model_weights.pt"),
+    os.path.join(root_dir, "outputs/checkpoints/best_congestion_unet.pt"),
+]
 DATA_DIR = os.path.join(root_dir, "data/circuitnet_processed_v2")
+DEMO_DIR = os.path.join(root_dir, "demo_samples")
 
 device = torch.device("cpu")
 model = None
@@ -42,9 +46,13 @@ model = None
 def get_model():
     global model
     if model is None:
-        ckpt = torch.load(CKPT_PATH, map_location=device)
         model = CongestionUNet(in_channels=6, out_channels=2, base_channels=32)
-        model.load_state_dict(ckpt["model_state_dict"])
+        for ckpt_path in CKPT_CANDIDATES:
+            if os.path.exists(ckpt_path):
+                ckpt = torch.load(ckpt_path, map_location=device)
+                model.load_state_dict(ckpt["model_state_dict"])
+                print(f"[*] Successfully loaded checkpoint from: {ckpt_path}")
+                break
         model.eval()
     return model
 
@@ -74,6 +82,8 @@ async def serve_index(request: Request):
 @app.get("/api/presets")
 async def list_presets():
     files = sorted(glob.glob(os.path.join(DATA_DIR, "*.npz")))
+    if not files:
+        files = sorted(glob.glob(os.path.join(DEMO_DIR, "*.npz")))
     preset_names = [os.path.basename(f) for f in files]
     return {"presets": preset_names}
 
@@ -90,6 +100,8 @@ async def predict_congestion(
             design_name = file.filename
         elif preset:
             fpath = os.path.join(DATA_DIR, preset)
+            if not os.path.exists(fpath):
+                fpath = os.path.join(DEMO_DIR, preset)
             if not os.path.exists(fpath):
                 return JSONResponse({"error": f"Preset {preset} not found"}, status_code=404)
             data = np.load(fpath)

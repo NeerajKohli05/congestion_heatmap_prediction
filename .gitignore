@@ -41,9 +41,11 @@ data/processed/
 *.tar
 *.zip
 *.npz
+!demo_samples/*.npz
 
 # Model Checkpoints (Large PyTorch Binaries)
 outputs/checkpoints/*.pt
+!outputs/checkpoints/model_weights.pt
 outputs/checkpoints/*.pth
 outputs/checkpoints/*.onnx
 

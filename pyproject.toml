@@ -1,0 +1,9 @@
+[project]
+name = "congestion-heatmap-prediction"
+version = "1.0.0"
+description = "AI-Accelerated VLSI Routing Congestion Heatmap Predictor"
+readme = "README.md"
+requires-python = ">=3.9"
+
+[tool.vercel]
+entrypoint = "web_app.server:app"

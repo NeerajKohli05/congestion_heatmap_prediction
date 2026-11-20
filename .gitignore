@@ -42,6 +42,8 @@ data/processed/
 *.zip
 *.npz
 !demo_samples/*.npz
+!data/circuitnet_processed_v2/
+!data/circuitnet_processed_v2/*.npz
 
 # Model Checkpoints (Large PyTorch Binaries)
 outputs/checkpoints/*.pt

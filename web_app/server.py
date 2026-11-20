@@ -76,7 +76,11 @@ def array_to_b64(arr: np.ndarray, cmap: str = "hot", vmin: Optional[float] = Non
 
 @app.get("/", response_class=HTMLResponse)
 async def serve_index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={},
+    )
 
 
 @app.get("/api/presets")

@@ -1,0 +1,50 @@
+CONGESTION HEATMAP PREDICTION — TEST RESULTS
+Checkpoint: /Users/neeraj/congestion_heatmap_prediction/outputs/checkpoints/best_congestion_unet.pt
+Data: /Users/neeraj/congestion_heatmap_prediction/data/circuitnet_processed
+Test samples: 14
+
+  Test samples                             14
+  Avg inference time                       31.3 ms/sample
+
+
+── Regression Metrics ──────────────────────────
+  Mean PCC  (↑ better)                     0.8230  ± 0.0217
+  Mean NMSE (↓ better)                     0.1371  ± 0.0271
+  Mean MAE  (↓ better)                     0.07339
+  Mean RMSE (↓ better)                     0.10093
+
+
+── Hotspot Detection (Critical for EDA) ────────
+  Hotspot F1  @Top-5%                      0.4069  ± 0.0399
+  Hotspot IoU @Top-5%                      0.3317  ± 0.0208
+  Pixels within ±10%                       71.2%
+
+
+── Per-Channel Breakdown ───────────────────────
+  H-Congestion PCC                         0.8552
+  V-Congestion PCC                         0.7908
+  H-Congestion NMSE                        0.1138
+  V-Congestion NMSE                        0.1605
+  H-Congestion F1@5%                       0.4978
+  V-Congestion F1@5%                       0.3161
+  H-Congestion F1@10%                      0.5571
+  V-Congestion F1@10%                      0.4642
+
+
+Per-Sample Details:
+File                                     PCC     NMSE    F1@5%   IoU@5%
+----------------------------------------------------------------------
+nvdla-small_0080.npz                  0.8422   0.1240   0.4237   0.3083
+nvdla-small_0077.npz                  0.8082   0.1732   0.4725   0.3730
+nvdla-small_0073.npz                  0.8390   0.1257   0.4408   0.3627
+nvdla-small_0094.npz                  0.8040   0.1519   0.4463   0.3052
+nvdla-small_0033.npz                  0.8344   0.1289   0.3779   0.3274
+nvdla-small_0079.npz                  0.8466   0.1094   0.3278   0.3350
+nvdla-small_0069.npz                  0.7944   0.1430   0.3700   0.3382
+nvdla-small_0042.npz                  0.8376   0.1145   0.3602   0.3094
+nvdla-small_0000.npz                  0.8273   0.1217   0.4060   0.3242
+nvdla-small_0010.npz                  0.8009   0.1706   0.4133   0.3616
+nvdla-small_0064.npz                  0.8084   0.1448   0.4408   0.3114
+nvdla-small_0030.npz                  0.8491   0.1121   0.4066   0.3188
+nvdla-small_0018.npz                  0.8478   0.1017   0.3657   0.3382
+nvdla-small_0004.npz                  0.7824   0.1984   0.4457   0.3306

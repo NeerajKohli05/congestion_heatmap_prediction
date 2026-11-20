@@ -1,0 +1,31 @@
+# Circuit Routing Congestion Heatmap Prediction — CircuitNet Config
+
+experiment:
+  name: "congestion_unet_circuitnet_nvdla_small"
+  seed: 42
+  device: "auto"   # "cuda", "mps", "cpu", or "auto"
+
+data:
+  grid_h: 128
+  grid_w: 128
+  in_channels: 6
+  out_channels: 2             # 0: H-Overflow, 1: V-Overflow
+  data_dir: "./data/circuitnet_processed"   # CircuitNet real data
+  val_ratio: 0.15             # 15% val = ~14 samples (rest 82 train)
+  num_synthetic_samples: 30   # Only used if circuitnet_processed is empty
+
+model:
+  base_channels: 32           # 32→64→128→256→512 at bottleneck
+
+training:
+  epochs: 20                  # More epochs for real data
+  batch_size: 8
+  learning_rate: 0.0005       # Lower LR for real data
+  weight_decay: 0.0001
+  hotspot_threshold: 0.7      # Slightly lower (real data has sharper hotspots)
+  hotspot_weight: 5.0         # Higher penalty on hotspots
+  lambda_ssim: 0.25
+  save_dir: "./outputs/checkpoints"
+
+visualization:
+  save_dir: "./outputs/visualizations"

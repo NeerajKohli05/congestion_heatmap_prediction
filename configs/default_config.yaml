@@ -1,0 +1,32 @@
+# Circuit Routing Congestion Heatmap Prediction Configuration
+# Real CircuitNet 14nm FinFET Placement & Routing Congestion Benchmark
+
+experiment:
+  name: "congestion_attention_unet_circuitnet"
+  seed: 42
+  device: "auto" # "mps", "cuda", "cpu", or "auto"
+
+data:
+  grid_h: 128
+  grid_w: 128
+  in_channels: 6   # 0: Pin Density, 1: Cell Density, 2: Short RUDY, 3: Long RUDY, 4: Total RUDY, 5: Macro Blockage
+  out_channels: 2  # 0: Horizontal Congestion, 1: Vertical Congestion
+  data_dir: "./data/circuitnet_processed"
+  val_ratio: 0.15
+
+model:
+  base_channels: 32 # Multi-scale channels: 32 -> 64 -> 128 -> 256 -> 512
+
+training:
+  epochs: 15
+  batch_size: 8
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  hotspot_threshold: 0.70
+  hotspot_weight: 3.0
+  lambda_ssim: 0.15
+  lambda_pcc: 0.20
+  save_dir: "./outputs/checkpoints"
+
+visualization:
+  save_dir: "./outputs/visualizations"

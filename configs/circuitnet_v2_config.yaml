@@ -1,0 +1,29 @@
+# VLSI Circuit Congestion Heatmap Prediction Configuration - Production Model
+experiment:
+  name: "circuitnet_n14_congestion_unet"
+  seed: 42
+  device: "auto"
+
+data:
+  grid_h: 128
+  grid_w: 128
+  in_channels: 6
+  out_channels: 2  # Channel 0: H-Routing Congestion, Channel 1: V-Routing Congestion
+  data_dir: "./data/circuitnet_processed_v2"
+  val_ratio: 0.15
+
+model:
+  base_channels: 32
+
+training:
+  epochs: 15
+  batch_size: 8
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  hotspot_threshold: 0.5  # Top congested utilization regions
+  hotspot_weight: 3.0
+  lambda_ssim: 0.2
+  save_dir: "./outputs/checkpoints"
+
+visualization:
+  save_dir: "./outputs/test_results"

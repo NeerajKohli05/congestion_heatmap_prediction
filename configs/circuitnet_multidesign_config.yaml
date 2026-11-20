@@ -1,0 +1,29 @@
+# Extended Multi-Design CircuitNet Training Configuration (NVDLA + Vortex-small)
+experiment:
+  name: "circuitnet_n14_multidesign_congestion_unet"
+  seed: 42
+  device: "auto"
+
+data:
+  grid_h: 128
+  grid_w: 128
+  in_channels: 6
+  out_channels: 2  # H-Congestion, V-Congestion
+  data_dir: "./data/circuitnet_processed_v2"
+  val_ratio: 0.15  # 15% validation (~29 designs)
+
+model:
+  base_channels: 32
+
+training:
+  epochs: 25
+  batch_size: 8
+  learning_rate: 0.0008
+  weight_decay: 0.0001
+  hotspot_threshold: 0.5
+  hotspot_weight: 3.5
+  lambda_ssim: 0.25
+  save_dir: "./outputs/checkpoints"
+
+visualization:
+  save_dir: "./outputs/test_results_v2"

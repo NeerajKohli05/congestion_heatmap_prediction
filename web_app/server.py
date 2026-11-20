@@ -38,23 +38,40 @@ CKPT_CANDIDATES = [
 ]
 DATA_DIR = os.path.join(root_dir, "data/circuitnet_processed_v2")
 DEMO_DIR = os.path.join(root_dir, "demo_samples")
+BENCHMARK_REPORT = os.path.join(root_dir, "outputs/test_results_v2/results_report.txt")
 
 device = torch.device("cpu")
-model = None
+models = {}
 
 
-def get_model():
-    global model
-    if model is None:
-        model = CongestionUNet(in_channels=6, out_channels=2, base_channels=32)
-        for ckpt_path in CKPT_CANDIDATES:
-            if os.path.exists(ckpt_path):
-                ckpt = torch.load(ckpt_path, map_location=device)
-                model.load_state_dict(ckpt["model_state_dict"])
-                print(f"[*] Successfully loaded checkpoint from: {ckpt_path}")
-                break
-        model.eval()
-    return model
+def get_available_checkpoints():
+    return {
+        os.path.basename(path): path
+        for path in CKPT_CANDIDATES
+        if os.path.isfile(path)
+    }
+
+
+def get_model(model_name: Optional[str] = None):
+    available = get_available_checkpoints()
+    if not available:
+        raise FileNotFoundError("No trained model checkpoint is available")
+
+    selected_name = model_name or next(iter(available))
+    if selected_name not in available:
+        raise ValueError(f"Unknown model checkpoint: {selected_name}")
+
+    if selected_name not in models:
+        checkpoint = torch.load(available[selected_name], map_location=device)
+        model_config = checkpoint.get("config", {}).get("model", {})
+        base_channels = model_config.get("base_channels", 32)
+        model_instance = CongestionUNet(in_channels=6, out_channels=2, base_channels=base_channels)
+        model_instance.load_state_dict(checkpoint["model_state_dict"])
+        model_instance.eval()
+        models[selected_name] = model_instance
+        print(f"[*] Loaded checkpoint {selected_name} (base_channels={base_channels})")
+
+    return models[selected_name]
 
 
 def array_to_b64(arr: np.ndarray, cmap: str = "hot", vmin: Optional[float] = None, vmax: Optional[float] = None) -> str:
@@ -92,10 +109,99 @@ async def list_presets():
     return {"presets": preset_names}
 
 
+@app.get("/api/models")
+async def list_models():
+    models_available = []
+    for model_name in get_available_checkpoints():
+        models_available.append({
+            "id": model_name,
+            "name": "Best validation checkpoint" if model_name == "best_congestion_unet.pt" else "Deployed model weights",
+            "architecture": "Residual Attention U-Net",
+            "base_channels": 32,
+            "trained": True,
+        })
+    return {"models": models_available}
+
+
+@app.get("/api/benchmark")
+async def benchmark_results():
+    if not os.path.exists(BENCHMARK_REPORT):
+        return JSONResponse({"error": "Saved benchmark report is unavailable"}, status_code=404)
+
+    summary = {}
+    samples = []
+    in_sample_table = False
+
+    with open(BENCHMARK_REPORT, "r", encoding="utf-8") as report_file:
+        for line in report_file:
+            line = line.strip()
+            if line.startswith("Per-Sample Details:"):
+                in_sample_table = True
+                continue
+
+            if in_sample_table:
+                parts = line.split()
+                if len(parts) == 5 and parts[0].endswith(".npz"):
+                    try:
+                        samples.append({
+                            "file": parts[0],
+                            "pcc": float(parts[1]),
+                            "nmse": float(parts[2]),
+                            "f1_top5": float(parts[3]),
+                            "iou_top5": float(parts[4]),
+                        })
+                    except ValueError:
+                        continue
+                continue
+
+            if line.startswith("Test samples"):
+                summary["sample_count"] = int(line.split()[-1])
+            elif line.startswith("Avg inference time"):
+                summary["inference_ms"] = float(line.split()[-2])
+            elif line.startswith("Mean PCC"):
+                values = line.split()
+                summary["mean_pcc"] = float(values[-3])
+                summary["pcc_std"] = float(values[-1])
+            elif line.startswith("Mean NMSE"):
+                values = line.split()
+                summary["mean_nmse"] = float(values[-3])
+                summary["nmse_std"] = float(values[-1])
+            elif line.startswith("Mean MAE"):
+                summary["mean_mae"] = float(line.split()[-1])
+            elif line.startswith("Mean RMSE"):
+                summary["mean_rmse"] = float(line.split()[-1])
+            elif line.startswith("Hotspot F1"):
+                values = line.split()
+                summary["hotspot_f1_top5"] = float(values[-3])
+                summary["hotspot_f1_std"] = float(values[-1])
+            elif line.startswith("Hotspot IoU"):
+                values = line.split()
+                summary["hotspot_iou_top5"] = float(values[-3])
+                summary["hotspot_iou_std"] = float(values[-1])
+            elif line.startswith("H-Congestion PCC"):
+                summary["h_pcc"] = float(line.split()[-1])
+            elif line.startswith("V-Congestion PCC"):
+                summary["v_pcc"] = float(line.split()[-1])
+            elif line.startswith("H-Congestion NMSE"):
+                summary["h_nmse"] = float(line.split()[-1])
+            elif line.startswith("V-Congestion NMSE"):
+                summary["v_nmse"] = float(line.split()[-1])
+            elif line.startswith("H-Congestion F1@5%"):
+                summary["h_f1_top5"] = float(line.split()[-1])
+            elif line.startswith("V-Congestion F1@5%"):
+                summary["v_f1_top5"] = float(line.split()[-1])
+
+    if not samples:
+        return JSONResponse({"error": "No per-sample benchmark data found"}, status_code=500)
+
+    return {"summary": summary, "samples": samples}
+
+
 @app.post("/api/predict")
 async def predict_congestion(
     preset: Optional[str] = Form(None),
-    file: Optional[UploadFile] = File(None)
+    file: Optional[UploadFile] = File(None),
+    model_name: Optional[str] = Form(None),
 ):
     try:
         if file is not None and file.filename != "":
@@ -116,7 +222,7 @@ async def predict_congestion(
         features = data["features"].astype(np.float32)  # (6, 128, 128)
         target = data["target"].astype(np.float32)      # (2, 128, 128)
 
-        net = get_model()
+        net = get_model(model_name)
 
         # Inference
         t0 = time.time()
@@ -154,6 +260,7 @@ async def predict_congestion(
 
         return {
             "design_name": design_name,
+            "model_name": model_name or next(iter(get_available_checkpoints())),
             "latency_ms": latency,
             "metrics": metrics,
             "images": {

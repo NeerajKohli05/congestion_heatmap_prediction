@@ -59,6 +59,366 @@
         .header-model { color: #eef1ee !important; font-family: var(--sans) !important; }
         .header-status-dot { background: #a9bcae !important; }
         .header-resolution { border-left: 1px solid #49534c; padding-left: 16px; }
+        .primary-nav { display: flex; align-items: center; gap: 4px; }
+        .nav-link {
+            padding: 8px 11px;
+            color: #c4cdc6;
+            background: transparent;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            font: 500 12px var(--sans);
+            cursor: pointer;
+        }
+        .nav-link:hover, .nav-link[aria-current="page"] {
+            color: #ffffff;
+            border-bottom-color: #b7c8bb;
+        }
+        .site-page { width: 100%; }
+        .report-page, .team-page {
+            max-width: 1152px;
+            margin: 0 auto;
+            padding: 40px 24px 64px;
+        }
+        .page-heading {
+            max-width: 760px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--line);
+        }
+        .page-kicker {
+            margin: 0 0 10px;
+            color: var(--muted);
+            font: 10px var(--mono);
+            text-transform: uppercase;
+        }
+        .page-title {
+            margin: 0;
+            color: var(--ink);
+            font-size: 32px;
+            font-weight: 600;
+            line-height: 1.15;
+        }
+        .page-lede {
+            max-width: 690px;
+            margin: 14px 0 0;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.65;
+        }
+        .report-section {
+            padding: 25px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .report-section h3 {
+            margin: 0 0 12px;
+            color: var(--ink);
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .report-section p, .report-section li {
+            color: #515b54;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+        .report-section p { max-width: 850px; margin: 0; }
+        .report-section ul { margin: 10px 0 0; padding-left: 19px; }
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 28px 40px;
+        }
+        .channel-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: 16px;
+            border-top: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+        }
+        .channel-item {
+            padding: 12px;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            color: #465149;
+            font-size: 12px;
+        }
+        .channel-item span {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--muted);
+            font: 10px var(--mono);
+        }
+        .scope-note {
+            margin-top: 22px;
+            padding: 14px 16px;
+            background: #ecefea;
+            border-left: 3px solid var(--accent);
+            color: #465149;
+            font-size: 12px;
+            line-height: 1.65;
+        }
+        .overview-band {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin: 22px 0 0;
+            border-block: 1px solid var(--line);
+        }
+        .overview-fact { padding: 14px 12px; border-right: 1px solid var(--line); }
+        .overview-fact:first-child { padding-left: 0; }
+        .overview-fact:last-child { border-right: 0; }
+        .overview-fact span { display: block; color: var(--muted); font-size: 10px; }
+        .overview-fact strong { display: block; margin-top: 6px; color: var(--ink); font-size: 14px; font-weight: 600; }
+        .overview-flow {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 18px;
+        }
+        .overview-step { position: relative; padding-top: 10px; border-top: 2px solid #718473; }
+        .overview-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            top: 22px;
+            right: -17px;
+            color: #78847a;
+            font-size: 18px;
+        }
+        .overview-step span { color: var(--muted); font: 10px var(--mono); }
+        .overview-step strong { display: block; margin: 5px 0; color: var(--ink); font-size: 12px; }
+        .overview-step p { font-size: 11px !important; }
+        .flow-legend { display: flex; flex-wrap: wrap; gap: 14px; margin: 22px 0 18px; }
+        .legend-key { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+        .legend-key i { width: 10px; height: 10px; border-radius: 50%; }
+        .legend-current { background: #526b58; }
+        .legend-future { background: #a4aaa5; }
+        .ecosystem-flow { display: grid; gap: 13px; }
+        .flow-lane {
+            display: grid;
+            grid-template-columns: 105px minmax(0, 1fr);
+            gap: 14px;
+            align-items: stretch;
+        }
+        .flow-lane-label {
+            display: flex;
+            align-items: center;
+            color: var(--muted);
+            font: 10px var(--mono);
+            line-height: 1.5;
+            text-transform: uppercase;
+        }
+        .flow-lane-nodes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+        .flow-lane-nodes.branch-lane { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr); }
+        .flow-branch-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+        .flow-branch-options .flow-node { min-height: 132px; }
+        .flow-branch-options .flow-node::after { content: "" !important; }
+        .flow-node {
+            position: relative;
+            min-height: 132px;
+            padding: 13px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-top: 2px solid #aeb5af;
+        }
+        .flow-node.current { border-top-color: #526b58; }
+        .flow-node:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            top: 48%;
+            right: -16px;
+            z-index: 1;
+            color: #7b847d;
+            font-size: 16px;
+        }
+        .flow-node-index { display: block; color: var(--muted); font: 9px var(--mono); }
+        .flow-node h4 { margin: 9px 0 5px; color: var(--ink); font-size: 12px; font-weight: 600; line-height: 1.35; }
+        .flow-node p { margin: 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+        .sample-compare-toolbar {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 20px 0 14px;
+        }
+        .sample-compare-toolbar label, .compare-selection-row label {
+            display: grid;
+            gap: 6px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+        .sample-count-control { min-width: 150px; }
+        .compare-selection-list { display: grid; border-top: 1px solid var(--line); }
+        .compare-selection-row {
+            display: grid;
+            grid-template-columns: 90px minmax(0, 1.5fr) minmax(220px, 1fr);
+            gap: 14px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .compare-slot-label { color: var(--ink); font-size: 12px; font-weight: 600; }
+        .compare-selection-row select, .sample-count-control select {
+            width: 100%;
+            min-width: 0;
+            min-height: 38px;
+            padding: 7px 9px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            font: 11px var(--sans);
+        }
+        .compare-run-row { display: flex; align-items: center; gap: 14px; margin-top: 16px; }
+        #runSampleComparison {
+            min-height: 38px;
+            padding: 9px 14px;
+            color: #fff;
+            background: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            font: 600 12px var(--sans);
+            cursor: pointer;
+        }
+        #runSampleComparison:hover { background: var(--accent-hover); }
+        #runSampleComparison:disabled { opacity: 0.6; cursor: wait; }
+        #sampleComparisonStatus { color: var(--muted); font-size: 11px; }
+        .sample-compare-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+            gap: 18px;
+            margin-top: 22px;
+        }
+        .sample-result-card { min-width: 0; padding: 14px 0; border-top: 2px solid var(--accent); }
+        .sample-result-name { overflow: hidden; color: var(--ink); font-size: 12px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+        .sample-result-model { margin-top: 4px; color: var(--muted); font-size: 10px; }
+        .sample-result-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; margin: 14px 0; }
+        .sample-result-metrics span { display: block; color: var(--muted); font-size: 9px; }
+        .sample-result-metrics strong { display: block; margin-top: 3px; color: var(--ink); font-size: 13px; font-variant-numeric: tabular-nums; }
+        .sample-result-maps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+        .sample-result-maps figure { margin: 0; color: var(--muted); font-size: 10px; }
+        .sample-result-maps img { display: block; width: 100%; margin-top: 5px; border: 1px solid var(--line); }
+        .sample-result-link { margin-top: 12px; }
+        .flow-feedback {
+            margin: 16px 0 0 119px;
+            padding: 11px 14px;
+            color: #6d5947;
+            background: #f3eee7;
+            border-left: 2px dashed #b17a50;
+            font-size: 11px;
+            line-height: 1.55;
+        }
+        .ecosystem-note { margin-top: 22px; padding: 16px; background: #f3f4f1; border: 1px solid var(--line); }
+        .ecosystem-note h3 { margin: 0 0 8px; color: var(--ink); font-size: 13px; }
+        .ecosystem-note p { margin: 0; color: #515b54; font-size: 11px; line-height: 1.65; }
+        .team-roster {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1px;
+            margin-top: 30px;
+            background: var(--line);
+            border: 1px solid var(--line);
+        }
+        .team-member {
+            min-height: 170px;
+            padding: 22px;
+            background: var(--surface);
+        }
+        .team-index {
+            color: var(--muted);
+            font: 10px var(--mono);
+        }
+        .team-name {
+            margin: 32px 0 0;
+            color: var(--ink);
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .library-toolbar, .comparison-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 24px 0 12px;
+        }
+        .toolbar-controls { display: flex; gap: 8px; min-width: 0; }
+        .page-control {
+            min-height: 38px;
+            padding: 8px 10px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            font: 12px var(--sans);
+        }
+        .page-control[type="search"] { width: min(320px, 42vw); }
+        .table-frame { overflow-x: auto; border-top: 1px solid var(--line); }
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .data-table th {
+            padding: 11px 12px;
+            color: var(--muted);
+            border-bottom: 1px solid var(--line);
+            font: 10px var(--mono);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .data-table td {
+            padding: 12px;
+            color: #414a43;
+            border-bottom: 1px solid var(--line);
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        .data-table tr:hover td { background: #f7f8f5; }
+        .sample-file { max-width: 390px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .family-label { font-weight: 600; }
+        .table-action {
+            padding: 6px 9px;
+            color: var(--accent);
+            background: transparent;
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            font: 600 11px var(--sans);
+            cursor: pointer;
+        }
+        .table-action:hover { background: var(--accent-soft); }
+        .pagination { display: flex; align-items: center; justify-content: flex-end; gap: 10px; padding-top: 14px; }
+        .pagination button {
+            padding: 6px 9px;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .pagination button:disabled { color: #9aa099; cursor: default; }
+        .pagination-label { color: var(--muted); font: 11px var(--mono); }
+        .comparison-stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin: 24px 0;
+            border-block: 1px solid var(--line);
+        }
+        .comparison-stat { padding: 16px 14px; border-right: 1px solid var(--line); }
+        .comparison-stat:first-child { padding-left: 0; }
+        .comparison-stat:last-child { border-right: 0; }
+        .comparison-stat-label { display: block; color: var(--muted); font-size: 11px; }
+        .comparison-stat-value { display: block; margin-top: 6px; color: var(--ink); font-size: 21px; font-weight: 600; font-variant-numeric: tabular-nums; }
+        .direction-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+            margin-top: 16px;
+        }
+        .direction-panel { padding: 14px 0; border-top: 1px solid var(--line); }
+        .direction-panel h4 { margin: 0 0 12px; color: var(--ink); font-size: 13px; font-weight: 600; }
+        .direction-row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; color: var(--muted); font-size: 12px; }
+        .direction-row strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+        .family-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; margin: 22px 0; }
+        .family-result { padding: 15px 0; border-top: 1px solid var(--line); }
+        .family-result h4 { margin: 0 0 14px; color: var(--ink); font-size: 13px; }
+        .bar-row { display: grid; grid-template-columns: 90px minmax(60px, 1fr) 44px; align-items: center; gap: 8px; margin: 9px 0; color: var(--muted); font-size: 11px; }
+        .bar-track { height: 7px; background: #e8ebe6; }
+        .bar-fill { height: 100%; background: #586f5f; }
+        .bar-value { color: var(--ink); text-align: right; font: 11px var(--mono); }
+        .data-note { margin: 16px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+        .empty-row { padding: 24px !important; color: var(--muted) !important; text-align: center; }
         main { gap: 24px !important; }
         .workspace-overview {
             grid-column: 1 / -1;
@@ -297,6 +657,9 @@
         @media (max-width: 640px) {
             header > div { padding: 14px 18px !important; }
             .header-meta { display: none !important; }
+            .site-header-inner { flex-wrap: wrap; gap: 10px; }
+            .primary-nav { width: 100%; margin-left: -8px; overflow-x: auto; }
+            .nav-link { padding: 8px; }
             main { padding: 20px 16px !important; }
             main .p-6 { padding: 18px !important; }
             .workspace-overview {
@@ -312,6 +675,38 @@
             #resultsView > div:first-child > div:first-child { flex-wrap: wrap; }
             #resultsView > div:first-child > div:first-child > div:last-child { flex-wrap: wrap; }
             .metrics-grid { row-gap: 0 !important; }
+            .report-page, .team-page { padding: 28px 18px 48px; }
+            .page-title { font-size: 26px; }
+            .report-grid, .team-roster { grid-template-columns: 1fr; }
+            .channel-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .sample-compare-toolbar { align-items: stretch; flex-direction: column; }
+            .compare-selection-row { grid-template-columns: 1fr; gap: 8px; }
+            .compare-run-row { align-items: flex-start; flex-direction: column; }
+            .overview-band { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .overview-fact:nth-child(2) { border-right: 0; }
+            .overview-fact:nth-child(n + 3) { border-top: 1px solid var(--line); }
+            .overview-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+            .overview-step:nth-child(2)::after { content: ""; }
+            .flow-lane { grid-template-columns: 1fr; gap: 6px; }
+            .flow-lane-nodes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+            .flow-lane-nodes.branch-lane { grid-template-columns: 1fr; }
+            .flow-branch-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .flow-node { min-height: 142px; }
+            .flow-node:nth-child(2)::after { content: ""; }
+            .flow-feedback { margin-left: 0; }
+            .team-member { min-height: 120px; }
+            .team-name { margin-top: 20px; }
+            .library-toolbar, .comparison-toolbar { align-items: stretch; flex-direction: column; }
+            .toolbar-controls { flex-wrap: wrap; }
+            .page-control[type="search"] { width: 100%; }
+            .comparison-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .comparison-stat:nth-child(2) { border-right: 0; }
+            .comparison-stat:nth-child(n + 3) { border-top: 1px solid var(--line); }
+            .direction-grid, .family-comparison { grid-template-columns: 1fr; gap: 12px; }
+            .sample-file { max-width: 180px; }
+        }
+        @media (min-width: 641px) and (max-width: 1200px) {
+            .header-meta { display: none !important; }
         }
     </style>
 </head>
@@ -331,6 +726,14 @@
                     <p class="site-subtitle text-xs text-slate-400">Physical design analysis</p>
                 </div>
             </div>
+            <nav class="primary-nav" aria-label="Main navigation">
+                <button class="nav-link" type="button" data-page-target="report">Overview</button>
+                <button class="nav-link" type="button" data-page-target="analysis" aria-current="page">Analysis</button>
+                <button class="nav-link" type="button" data-page-target="samples">Samples</button>
+                <button class="nav-link" type="button" data-page-target="comparison">Compare</button>
+                <button class="nav-link" type="button" data-page-target="future">Future scope</button>
+                <button class="nav-link" type="button" data-page-target="team">Team</button>
+            </nav>
             <div class="header-meta flex items-center space-x-4 text-xs">
                 <div class="header-model flex items-center gap-2">
                     <span class="header-status-dot h-2 w-2 rounded-full"></span>
@@ -342,7 +745,7 @@
     </header>
 
     <!-- Main Container -->
-    <main class="flex-1 max-w-7xl mx-auto px-6 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main id="analysisPage" class="site-page flex-1 max-w-7xl mx-auto px-6 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8" data-page-view="analysis">
 
         <section class="workspace-overview" aria-label="Workspace overview">
             <div>
@@ -379,6 +782,13 @@
                         <label class="block text-xs font-semibold text-slate-300 mb-2">Prepared placement sample</label>
                         <select id="presetSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-blue-500 font-mono">
                             <option value="">Select a prepared design</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-2" for="analysisModelSelect">Trained model checkpoint</label>
+                        <select id="analysisModelSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-200">
+                            <option value="">Loading available models</option>
                         </select>
                     </div>
 
@@ -575,6 +985,310 @@
 
     </main>
 
+    <main id="reportPage" class="site-page report-page hidden" data-page-view="report" hidden>
+        <header class="page-heading">
+            <p class="page-kicker">Project report / CircuitNet N14</p>
+            <h2 class="page-title">Predicting where chip routing demand will be high</h2>
+            <p class="page-lede">A deep-learning prototype that turns prepared chip-placement maps into horizontal and vertical routing-utilization heatmaps, helping engineers inspect potential hotspots earlier in physical design.</p>
+        </header>
+
+        <div class="overview-band" aria-label="Project at a glance">
+            <div class="overview-fact"><span>Training data</span><strong>CircuitNet N14</strong></div>
+            <div class="overview-fact"><span>Design families</span><strong>NVDLA + Vortex</strong></div>
+            <div class="overview-fact"><span>Input / output</span><strong>6 maps → 2 maps</strong></div>
+            <div class="overview-fact"><span>Map resolution</span><strong>128 × 128 tiles</strong></div>
+        </div>
+
+        <section class="report-section">
+            <h3>Project flow at a glance</h3>
+            <div class="overview-flow">
+                <div class="overview-step"><span>01 / DATA</span><strong>Prepared layout maps</strong><p>Placement density, wire-demand proxies, and blockage maps.</p></div>
+                <div class="overview-step"><span>02 / MODEL</span><strong>Residual Attention U-Net</strong><p>Eight million trainable parameters process spatial patterns.</p></div>
+                <div class="overview-step"><span>03 / OUTPUT</span><strong>Two utilization maps</strong><p>Separate predictions for horizontal and vertical routing.</p></div>
+                <div class="overview-step"><span>04 / REVIEW</span><strong>Compare and inspect</strong><p>Reference maps, prediction maps, error maps, and metrics.</p></div>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <h3>Why this problem matters</h3>
+            <p>Integrated circuits contain many cells connected by metal wires. When local routing demand is high relative to available routing capacity, congestion can make physical design more difficult. A spatial estimate can help engineers inspect potential hotspots earlier in the design process.</p>
+        </section>
+
+        <section class="report-section">
+            <h3>Project workflow</h3>
+            <div class="report-grid">
+                <div>
+                    <p><strong>1. Prepare data.</strong> CircuitNet N14 provides precomputed placement-related maps and early-global-routing utilization maps. The project resizes and packages them into model-ready samples.</p>
+                </div>
+                <div>
+                    <p><strong>2. Train the model.</strong> A Residual Attention U-Net learns the relationship between six placement maps and two routing-utilization maps.</p>
+                </div>
+                <div>
+                    <p><strong>3. Predict.</strong> The web app loads a prepared sample, sends its six input maps through the trained model, and generates horizontal and vertical predictions.</p>
+                </div>
+                <div>
+                    <p><strong>4. Compare.</strong> For samples that include reference targets, the app calculates metrics and displays reference, predicted, and absolute-difference heatmaps.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <h3>Model inputs and outputs</h3>
+            <p>Each prepared sample is represented on a 128 × 128 grid. The model receives six spatial channels and predicts two continuous early-global-routing utilization maps.</p>
+            <div class="channel-list">
+                <div class="channel-item"><span>INPUT 01</span>Pin density</div>
+                <div class="channel-item"><span>INPUT 02</span>Cell density</div>
+                <div class="channel-item"><span>INPUT 03</span>Short-net RUDY</div>
+                <div class="channel-item"><span>INPUT 04</span>Long-net RUDY</div>
+                <div class="channel-item"><span>INPUT 05</span>Total RUDY demand</div>
+                <div class="channel-item"><span>INPUT 06</span>Macro blockage mask</div>
+                <div class="channel-item"><span>OUTPUT 01</span>Horizontal utilization</div>
+                <div class="channel-item"><span>OUTPUT 02</span>Vertical utilization</div>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <h3>Model approach</h3>
+            <div class="report-grid">
+                <p><strong>Architecture.</strong> The Residual Attention U-Net uses an encoder-decoder structure to learn both broad chip-level patterns and local congestion features. Skip connections preserve spatial detail; attention gates help focus on informative regions.</p>
+                <p><strong>Training objective.</strong> The code combines hotspot-weighted Huber error, structural similarity, and correlation loss. This encourages accurate utilization values and spatial patterns, while giving higher weight to congested regions.</p>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <h3>Dataset and evaluation</h3>
+            <div class="report-grid">
+                <p>The prepared multi-design dataset contains 192 samples: 96 NVDLA-small and 96 Vortex-small placement variants. The training split uses 164 samples; 28 samples are used for validation.</p>
+                <p>The current evaluation script reuses those same 28 validation samples as its reported “test” set. Therefore, the saved scores are validation results, not an independent final test. An untouched test set is needed for a separate final performance claim.</p>
+            </div>
+        </section>
+
+        <section class="report-section">
+            <h3>What the dashboard shows</h3>
+            <p>The Analysis page lets a user select one of the prepared samples, run inference, inspect the input channels and compare predicted utilization with the sample’s reference maps. PCC measures spatial pattern agreement; MAE and NMSE measure error; hotspot F1 measures overlap of the top-utilization regions.</p>
+            <div class="scope-note"><strong>Scope:</strong> This repository is a prediction prototype using prepared CircuitNet maps. It does not currently accept raw Verilog and automatically run synthesis, placement, or routing. Predictions estimate utilization; they do not replace an EDA router or guarantee routing success.</div>
+        </section>
+    </main>
+
+    <main id="samplesPage" class="site-page report-page hidden" data-page-view="samples" hidden>
+        <header class="page-heading">
+            <p class="page-kicker">Data library / CircuitNet N14</p>
+            <h2 class="page-title">Prepared placement samples</h2>
+            <p class="page-lede">Browse the NVDLA-small and Vortex-small placement variants included with this deployment. Select any sample to open it in the analysis workspace.</p>
+        </header>
+        <div class="library-toolbar">
+            <span id="sampleLibraryCount" class="workspace-stat-label">Loading available samples</span>
+            <div class="toolbar-controls">
+                <input id="sampleSearch" class="page-control" type="search" placeholder="Search design or configuration" aria-label="Search samples">
+                <select id="sampleFamilyFilter" class="page-control" aria-label="Filter by design family">
+                    <option value="all">All design families</option>
+                    <option value="nvdla">NVDLA-small</option>
+                    <option value="vortex">Vortex-small</option>
+                </select>
+            </div>
+        </div>
+        <div class="table-frame">
+            <table class="data-table">
+                <thead>
+                    <tr><th>PREPARED SAMPLE</th><th>DESIGN FAMILY</th><th>VARIANT CONFIGURATION</th><th></th></tr>
+                </thead>
+                <tbody id="sampleRows"><tr><td class="empty-row" colspan="4">Loading samples…</td></tr></tbody>
+            </table>
+        </div>
+        <div class="pagination">
+            <button id="samplePrevious" type="button" aria-label="Previous sample page">Previous</button>
+            <span id="samplePageLabel" class="pagination-label">Page 1</span>
+            <button id="sampleNext" type="button" aria-label="Next sample page">Next</button>
+        </div>
+        <p class="data-note">Each sample stores six placement-feature maps and two early-global-routing utilization reference maps at 128 × 128 resolution.</p>
+    </main>
+
+    <main id="comparisonPage" class="site-page report-page hidden" data-page-view="comparison" hidden>
+        <header class="page-heading">
+            <p class="page-kicker">Evaluation / saved benchmark</p>
+            <h2 class="page-title">Model comparison</h2>
+            <p class="page-lede">Choose two or three prepared circuit samples and select a trained checkpoint for each. Generate predictions to compare their metrics and directional heatmaps side by side.</p>
+        </header>
+        <section class="report-section">
+            <h3>Run a sample comparison</h3>
+            <div class="sample-compare-toolbar">
+                <p class="data-note">Each sample can use its own available checkpoint. Results are generated from the selected sample’s features and compared with its stored reference target.</p>
+                <label class="sample-count-control">Number of samples
+                    <select id="compareSampleCount">
+                        <option value="2">Compare 2 samples</option>
+                        <option value="3" selected>Compare 3 samples</option>
+                    </select>
+                </label>
+            </div>
+            <div id="compareSelectionRows" class="compare-selection-list">
+                <div class="compare-selection-row" data-compare-slot="1">
+                    <span class="compare-slot-label">Sample 1</span>
+                    <label>Prepared sample<select id="comparePreset1" data-preset-select><option value="">Loading samples</option></select></label>
+                    <label>Model checkpoint<select id="compareModel1" data-model-select><option value="">Loading models</option></select></label>
+                </div>
+                <div class="compare-selection-row" data-compare-slot="2">
+                    <span class="compare-slot-label">Sample 2</span>
+                    <label>Prepared sample<select id="comparePreset2" data-preset-select><option value="">Loading samples</option></select></label>
+                    <label>Model checkpoint<select id="compareModel2" data-model-select><option value="">Loading models</option></select></label>
+                </div>
+                <div class="compare-selection-row" data-compare-slot="3">
+                    <span class="compare-slot-label">Sample 3</span>
+                    <label>Prepared sample<select id="comparePreset3" data-preset-select><option value="">Loading samples</option></select></label>
+                    <label>Model checkpoint<select id="compareModel3" data-model-select><option value="">Loading models</option></select></label>
+                </div>
+            </div>
+            <div class="compare-run-row">
+                <button id="runSampleComparison" type="button">Generate comparison</button>
+                <span id="sampleComparisonStatus" aria-live="polite">Choose samples and checkpoints to begin.</span>
+            </div>
+            <div id="sampleComparisonResults" class="sample-compare-results" aria-live="polite"></div>
+        </section>
+        <section class="report-section">
+            <h3>Saved validation benchmark</h3>
+            <p>These aggregate values come from the repository’s saved 28-sample validation report. They are separate from the sample comparisons generated above and are not an independent final test result.</p>
+        </section>
+        <div class="comparison-stats" aria-label="Saved benchmark summary">
+            <div class="comparison-stat"><span class="comparison-stat-label">Mean PCC</span><strong id="comparisonPcc" class="comparison-stat-value">—</strong></div>
+            <div class="comparison-stat"><span class="comparison-stat-label">Mean NMSE</span><strong id="comparisonNmse" class="comparison-stat-value">—</strong></div>
+            <div class="comparison-stat"><span class="comparison-stat-label">Hotspot F1 · top 5%</span><strong id="comparisonF1" class="comparison-stat-value">—</strong></div>
+            <div class="comparison-stat"><span class="comparison-stat-label">Samples · inference</span><strong id="comparisonCount" class="comparison-stat-value">—</strong></div>
+        </div>
+        <section class="report-section">
+            <h3>Horizontal and vertical performance</h3>
+            <div class="direction-grid">
+                <div class="direction-panel">
+                    <h4>Horizontal utilization</h4>
+                    <div class="direction-row"><span>Pearson correlation</span><strong id="summaryHPcc">—</strong></div>
+                    <div class="direction-row"><span>Normalized error</span><strong id="summaryHNmse">—</strong></div>
+                    <div class="direction-row"><span>Hotspot F1 · top 5%</span><strong id="summaryHF1">—</strong></div>
+                </div>
+                <div class="direction-panel">
+                    <h4>Vertical utilization</h4>
+                    <div class="direction-row"><span>Pearson correlation</span><strong id="summaryVPcc">—</strong></div>
+                    <div class="direction-row"><span>Normalized error</span><strong id="summaryVNmse">—</strong></div>
+                    <div class="direction-row"><span>Hotspot F1 · top 5%</span><strong id="summaryVF1">—</strong></div>
+                </div>
+            </div>
+        </section>
+        <section class="report-section">
+            <h3>Design-family comparison</h3>
+            <div id="familyComparison" class="family-comparison"><p class="data-note">Loading evaluation results…</p></div>
+        </section>
+        <section class="report-section">
+            <h3>Per-sample results</h3>
+            <div class="comparison-toolbar">
+                <span id="comparisonCountLabel" class="workspace-stat-label">Loading saved sample results</span>
+                <div class="toolbar-controls">
+                    <input id="comparisonSearch" class="page-control" type="search" placeholder="Search evaluated samples" aria-label="Search evaluated samples">
+                    <select id="comparisonFamilyFilter" class="page-control" aria-label="Filter results by design family">
+                        <option value="all">Both families</option>
+                        <option value="nvdla">NVDLA-small</option>
+                        <option value="vortex">Vortex-small</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-frame">
+                <table class="data-table">
+                    <thead><tr><th>SAMPLE</th><th>FAMILY</th><th>PCC ↑</th><th>NMSE ↓</th><th>F1 TOP 5% ↑</th><th>IoU TOP 5% ↑</th><th></th></tr></thead>
+                    <tbody id="comparisonRows"><tr><td class="empty-row" colspan="7">Loading results…</td></tr></tbody>
+                </table>
+            </div>
+            <p class="data-note">These saved values come from the 28-sample validation partition. The evaluation script reuses this validation set as its “test” set, so these are not independent final-test results. Average saved inference time: <span id="comparisonLatency">—</span> per sample.</p>
+        </section>
+    </main>
+
+    <main id="futurePage" class="site-page report-page hidden" data-page-view="future" hidden>
+        <header class="page-heading">
+            <p class="page-kicker">Roadmap / proposed ecosystem</p>
+            <h2 class="page-title">From RTL candidates to congestion-aware design decisions</h2>
+            <p class="page-lede">A future end-to-end flow could evaluate RTL or placement alternatives by passing every candidate through physical implementation, extracting the model’s required maps, and ranking the resulting congestion predictions.</p>
+        </header>
+
+        <div class="flow-legend" aria-label="Implementation status legend">
+            <span class="legend-key"><i class="legend-current"></i>Current prototype capability</span>
+            <span class="legend-key"><i class="legend-future"></i>Roadmap stage</span>
+        </div>
+
+        <section class="report-section">
+            <h3>Proposed end-to-end ecosystem</h3>
+            <div class="ecosystem-flow" role="img" aria-label="Future flow from RTL candidates through verification, synthesis, placement and feature extraction to congestion prediction, candidate ranking and iteration">
+                <div class="flow-lane">
+                    <div class="flow-lane-label">01 / RTL creation</div>
+                    <div class="flow-lane-nodes branch-lane">
+                        <article class="flow-node future"><span class="flow-node-index">INPUT</span><h4>Design specification</h4><p>Function, interface, timing and area requirements.</p></article>
+                        <div class="flow-branch-options" aria-label="Alternative RTL candidate sources">
+                            <article class="flow-node future"><span class="flow-node-index">OPTION A</span><h4>Engineer-written RTL</h4><p>Existing Verilog/SystemVerilog candidate.</p></article>
+                            <article class="flow-node future"><span class="flow-node-index">OPTION B</span><h4>RTL generation</h4><p>Generate candidate RTL from a reviewed specification.</p></article>
+                        </div>
+                        <article class="flow-node future"><span class="flow-node-index">GATE</span><h4>Lint, simulation, formal checks</h4><p>Reject candidates that fail functional or coding checks.</p></article>
+                    </div>
+                </div>
+
+                <div class="flow-lane">
+                    <div class="flow-lane-label">02 / Physical setup</div>
+                    <div class="flow-lane-nodes">
+                        <article class="flow-node future"><span class="flow-node-index">SYNTHESIS</span><h4>Map RTL to library cells</h4><p>Apply target libraries, timing constraints and synthesis settings.</p></article>
+                        <article class="flow-node future"><span class="flow-node-index">FLOORPLAN</span><h4>Define chip and macro regions</h4><p>Set die area, macro locations, blockages and constraints.</p></article>
+                        <article class="flow-node future"><span class="flow-node-index">PLACEMENT</span><h4>Place and legalize cells</h4><p>Export placed geometry and connectivity, such as DEF.</p></article>
+                        <article class="flow-node future"><span class="flow-node-index">FEATURE BUILD</span><h4>Extract six spatial maps</h4><p>Match the model’s channel definitions, normalization and grid.</p></article>
+                    </div>
+                </div>
+
+                <div class="flow-lane">
+                    <div class="flow-lane-label">03 / AI evaluation</div>
+                    <div class="flow-lane-nodes">
+                        <article class="flow-node current"><span class="flow-node-index">MODEL INPUT</span><h4>Prepared feature tensor</h4><p>Six 128 × 128 channels, currently loaded from CircuitNet samples.</p></article>
+                        <article class="flow-node current"><span class="flow-node-index">INFERENCE</span><h4>Congestion prediction</h4><p>Predict horizontal and vertical utilization maps.</p></article>
+                        <article class="flow-node current"><span class="flow-node-index">ANALYSIS</span><h4>Heatmap and hotspot review</h4><p>Display maps; compare metrics when reference targets exist.</p></article>
+                        <article class="flow-node future"><span class="flow-node-index">CANDIDATE RANKING</span><h4>Compare feasible alternatives</h4><p>Rank only after applying timing, area and design constraints.</p></article>
+                    </div>
+                </div>
+            </div>
+            <div class="flow-feedback"><strong>Iteration loop:</strong> review the predicted hotspots, adjust RTL, floorplan or placement, then rerun the physical flow and predictor for each candidate. Final decisions still require validation with the actual EDA implementation and routing tools.</div>
+        </section>
+
+        <section class="report-section">
+            <h3>What “best RTL” would mean</h3>
+            <p>The congestion model cannot judge raw RTL directly: it only sees placement feature maps. Each RTL candidate must first pass verification, synthesis and placement. The predictor can then estimate routing utilization for that placed candidate. A system could rank candidates against user-defined limits such as timing and area, alongside predicted congestion; the current model does not itself predict timing or power.</p>
+        </section>
+
+        <section class="report-section">
+            <h3>Steps needed to reach this roadmap</h3>
+            <div class="report-grid">
+                <p><strong>1. Build a robust extractor.</strong> Convert real placed DEF/LEF and technology data into the exact six channels expected by the trained model.</p>
+                <p><strong>2. Add features-only inference.</strong> A new design has no reference target before routing, so prediction must work without target maps or target-based metrics.</p>
+                <p><strong>3. Validate beyond the current split.</strong> Create a truly independent test set and test across new placements, designs and compatible technology conditions.</p>
+                <p><strong>4. Integrate external tools safely.</strong> Add managed synthesis/placement jobs, candidate tracking, resource limits and user review before any automated ranking.</p>
+            </div>
+            <div class="ecosystem-note">
+                <h3>Current project boundary</h3>
+                <p>Implemented today: prepared CircuitNet sample loading, model inference, heatmap visualization and target-based comparison. Proposed only: RTL generation, RTL verification, synthesis, floorplanning, placement, automated feature extraction for arbitrary designs, and best-candidate selection.</p>
+            </div>
+        </section>
+    </main>
+
+    <main id="teamPage" class="site-page team-page hidden" data-page-view="team" hidden>
+        <header class="page-heading">
+            <p class="page-kicker">Project team</p>
+            <h2 class="page-title">The people behind the project</h2>
+            <p class="page-lede">A collaborative project exploring machine-learning methods for early routing-congestion analysis.</p>
+        </header>
+        <section class="team-roster" aria-label="Team members">
+            <article class="team-member">
+                <span class="team-index">01 / TEAM MEMBER</span>
+                <h3 class="team-name">Neeraj</h3>
+            </article>
+            <article class="team-member">
+                <span class="team-index">02 / TEAM MEMBER</span>
+                <h3 class="team-name">Devika</h3>
+            </article>
+            <article class="team-member">
+                <span class="team-index">03 / TEAM MEMBER</span>
+                <h3 class="team-name">Manish</h3>
+            </article>
+        </section>
+    </main>
+
     <!-- Footer -->
     <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-slate-500">
         AI/ML EDA Electronic Design Automation • Powered by PyTorch & CircuitNet 14nm FinFET Benchmark
@@ -582,35 +1296,332 @@
 
     <!-- Frontend Script -->
     <script>
+        const pageViews = document.querySelectorAll('[data-page-view]');
+        const pageLinks = document.querySelectorAll('[data-page-target]');
+        const pageTitles = {
+            report: 'Project overview',
+            analysis: 'Congestion analysis',
+            samples: 'Sample library',
+            comparison: 'Model comparison',
+            future: 'Future scope',
+            team: 'Project team',
+        };
+
+        function showPage(pageName, updateAddress = true) {
+            const pageExists = Array.from(pageViews).some((view) => view.dataset.pageView === pageName);
+            const activePage = pageExists ? pageName : 'analysis';
+
+            pageViews.forEach((view) => {
+                const isActive = view.dataset.pageView === activePage;
+                view.hidden = !isActive;
+                view.classList.toggle('hidden', !isActive);
+            });
+
+            pageLinks.forEach((link) => {
+                if (link.dataset.pageTarget === activePage) {
+                    link.setAttribute('aria-current', 'page');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+
+            if (updateAddress) {
+                history.pushState(null, '', `#${activePage}`);
+            }
+            document.title = `${pageTitles[activePage]} | CircuitNet Workbench`;
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        pageLinks.forEach((link) => {
+            link.addEventListener('click', () => showPage(link.dataset.pageTarget));
+        });
+        window.addEventListener('hashchange', () => showPage(location.hash.slice(1), false));
+        window.addEventListener('popstate', () => showPage(location.hash.slice(1), false));
+        showPage(location.hash.slice(1) || 'analysis', false);
+
         const presetSelect = document.getElementById('presetSelect');
+        const analysisModelSelect = document.getElementById('analysisModelSelect');
         const fileInput = document.getElementById('fileInput');
         const runBtn = document.getElementById('runBtn');
         const placeholderView = document.getElementById('placeholderView');
         const loadingView = document.getElementById('loadingView');
         const resultsView = document.getElementById('resultsView');
         const metricsCard = document.getElementById('metricsCard');
+        let availablePresets = [];
+        let benchmarkSamples = [];
+        let samplePage = 0;
+        const samplePageSize = 24;
+
+        function escapeHTML(value) {
+            return String(value).replace(/[&<>"']/g, (character) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[character]);
+        }
+
+        function familyFor(filename) {
+            const lowerName = filename.toLowerCase();
+            if (lowerName.includes('vortex')) return 'vortex';
+            if (lowerName.includes('nvdla')) return 'nvdla';
+            return 'other';
+        }
+
+        function familyLabel(family) {
+            if (family === 'nvdla') return 'NVDLA-small';
+            if (family === 'vortex') return 'Vortex-small';
+            return 'Demo sample';
+        }
+
+        function filteredPresets() {
+            const query = document.getElementById('sampleSearch').value.trim().toLowerCase();
+            const family = document.getElementById('sampleFamilyFilter').value;
+            return availablePresets.filter((filename) => {
+                const matchesQuery = filename.toLowerCase().includes(query);
+                const matchesFamily = family === 'all' || familyFor(filename) === family;
+                return matchesQuery && matchesFamily;
+            });
+        }
+
+        function renderSampleLibrary() {
+            const filtered = filteredPresets();
+            const pageCount = Math.max(1, Math.ceil(filtered.length / samplePageSize));
+            samplePage = Math.min(samplePage, pageCount - 1);
+            const pageItems = filtered.slice(samplePage * samplePageSize, (samplePage + 1) * samplePageSize);
+            const rows = document.getElementById('sampleRows');
+            document.getElementById('sampleLibraryCount').textContent = `${filtered.length} of ${availablePresets.length} prepared samples`;
+            document.getElementById('samplePageLabel').textContent = `Page ${samplePage + 1} of ${pageCount}`;
+            document.getElementById('samplePrevious').disabled = samplePage === 0;
+            document.getElementById('sampleNext').disabled = samplePage >= pageCount - 1;
+
+            if (!pageItems.length) {
+                rows.innerHTML = '<tr><td class="empty-row" colspan="4">No samples match this search.</td></tr>';
+                return;
+            }
+
+            rows.innerHTML = pageItems.map((filename) => {
+                const family = familyFor(filename);
+                const variant = filename.replace(/^circuit_\d+_/, '').replace(/\.npz$/, '').replaceAll('_', ' · ');
+                return `<tr>
+                    <td class="sample-file" title="${escapeHTML(filename)}">${escapeHTML(filename)}</td>
+                    <td class="family-label">${familyLabel(family)}</td>
+                    <td>${escapeHTML(variant)}</td>
+                    <td><button class="table-action" type="button" data-analyze-file="${escapeHTML(filename)}">Analyze</button></td>
+                </tr>`;
+            }).join('');
+        }
+
+        function renderComparisonRows() {
+            const query = document.getElementById('comparisonSearch').value.trim().toLowerCase();
+            const family = document.getElementById('comparisonFamilyFilter').value;
+            const matches = benchmarkSamples.filter((sample) => {
+                return sample.file.toLowerCase().includes(query)
+                    && (family === 'all' || familyFor(sample.file) === family);
+            });
+            document.getElementById('comparisonCountLabel').textContent = `${matches.length} of ${benchmarkSamples.length} evaluated validation samples`;
+            const rows = document.getElementById('comparisonRows');
+            if (!matches.length) {
+                rows.innerHTML = '<tr><td class="empty-row" colspan="7">No evaluated samples match this filter.</td></tr>';
+                return;
+            }
+            rows.innerHTML = matches.map((sample) => `<tr>
+                <td class="sample-file" title="${escapeHTML(sample.file)}">${escapeHTML(sample.file)}</td>
+                <td class="family-label">${familyLabel(familyFor(sample.file))}</td>
+                <td>${sample.pcc.toFixed(4)}</td>
+                <td>${sample.nmse.toFixed(4)}</td>
+                <td>${(sample.f1_top5 * 100).toFixed(1)}%</td>
+                <td>${sample.iou_top5.toFixed(4)}</td>
+                <td><button class="table-action" type="button" data-analyze-file="${escapeHTML(sample.file)}">Inspect</button></td>
+            </tr>`).join('');
+        }
+
+        function renderFamilyComparison(samples) {
+            const container = document.getElementById('familyComparison');
+            const families = [
+                { key: 'nvdla', label: 'NVDLA-small' },
+                { key: 'vortex', label: 'Vortex-small' },
+            ];
+            container.innerHTML = families.map(({ key, label }) => {
+                const rows = samples.filter((sample) => familyFor(sample.file) === key);
+                if (!rows.length) return `<div class="family-result"><h4>${label}</h4><p class="data-note">No saved evaluation rows for this family.</p></div>`;
+                const average = (property) => rows.reduce((total, sample) => total + sample[property], 0) / rows.length;
+                const pcc = average('pcc');
+                const f1 = average('f1_top5');
+                return `<div class="family-result">
+                    <h4>${label} <span class="team-index">${rows.length} validation samples</span></h4>
+                    <div class="bar-row"><span>Mean PCC</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(0, Math.min(100, pcc * 100))}%"></div></div><strong class="bar-value">${pcc.toFixed(3)}</strong></div>
+                    <div class="bar-row"><span>Hotspot F1</span><div class="bar-track"><div class="bar-fill" style="width:${Math.max(0, Math.min(100, f1 * 100))}%"></div></div><strong class="bar-value">${f1.toFixed(3)}</strong></div>
+                </div>`;
+            }).join('');
+        }
+
+        async function loadBenchmark() {
+            try {
+                const response = await fetch('/api/benchmark');
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Benchmark report unavailable');
+                const summary = data.summary;
+                benchmarkSamples = data.samples;
+                document.getElementById('comparisonPcc').textContent = summary.mean_pcc.toFixed(4);
+                document.getElementById('comparisonNmse').textContent = summary.mean_nmse.toFixed(4);
+                document.getElementById('comparisonF1').textContent = `${(summary.hotspot_f1_top5 * 100).toFixed(1)}%`;
+                document.getElementById('comparisonCount').textContent = `${summary.sample_count} · ${summary.inference_ms.toFixed(1)} ms`;
+                document.getElementById('comparisonLatency').textContent = `${summary.inference_ms.toFixed(1)} ms`;
+                document.getElementById('summaryHPcc').textContent = summary.h_pcc.toFixed(4);
+                document.getElementById('summaryHNmse').textContent = summary.h_nmse.toFixed(4);
+                document.getElementById('summaryHF1').textContent = `${(summary.h_f1_top5 * 100).toFixed(1)}%`;
+                document.getElementById('summaryVPcc').textContent = summary.v_pcc.toFixed(4);
+                document.getElementById('summaryVNmse').textContent = summary.v_nmse.toFixed(4);
+                document.getElementById('summaryVF1').textContent = `${(summary.v_f1_top5 * 100).toFixed(1)}%`;
+                renderFamilyComparison(benchmarkSamples);
+                renderComparisonRows();
+            } catch (error) {
+                document.getElementById('comparisonRows').innerHTML = `<tr><td class="empty-row" colspan="7">${escapeHTML(error.message)}</td></tr>`;
+                document.getElementById('familyComparison').innerHTML = '<p class="data-note">Saved family comparison is unavailable.</p>';
+                console.error('Failed to load benchmark results', error);
+            }
+        }
 
         // Populate Presets on Load
         async function loadPresets() {
             try {
                 const res = await fetch('/api/presets');
                 const data = await res.json();
-                document.getElementById('availableDesignCount').textContent = data.presets.length;
-                data.presets.forEach(name => {
+                if (!res.ok) throw new Error('Sample list unavailable');
+                availablePresets = data.presets;
+                document.getElementById('availableDesignCount').textContent = availablePresets.length;
+                availablePresets.forEach(name => {
                     const opt = document.createElement('option');
                     opt.value = name;
                     opt.textContent = name;
                     presetSelect.appendChild(opt);
                 });
-                if (data.presets.length > 0) {
-                    presetSelect.value = data.presets[0];
+                document.querySelectorAll('[data-preset-select]').forEach((select, index) => {
+                    availablePresets.forEach((name) => {
+                        const option = document.createElement('option');
+                        option.value = name;
+                        option.textContent = name;
+                        select.appendChild(option);
+                    });
+                    select.value = availablePresets[index] || availablePresets[0] || '';
+                });
+                if (availablePresets.length > 0) {
+                    presetSelect.value = availablePresets[0];
                 }
+                renderSampleLibrary();
             } catch (err) {
                 document.getElementById('availableDesignCount').textContent = 'Unavailable';
                 console.error("Failed to load presets", err);
             }
         }
         loadPresets();
+        loadBenchmark();
+
+        async function loadModels() {
+            try {
+                const response = await fetch('/api/models');
+                const data = await response.json();
+                if (!response.ok || !data.models.length) throw new Error('No trained model checkpoints are available.');
+                const selects = [analysisModelSelect, ...document.querySelectorAll('[data-model-select]')];
+                selects.forEach((select) => {
+                    select.innerHTML = '';
+                    data.models.forEach((model) => {
+                        const option = document.createElement('option');
+                        option.value = model.id;
+                        option.textContent = `${model.name} · Base ${model.base_channels}`;
+                        select.appendChild(option);
+                    });
+                    select.value = data.models[0].id;
+                });
+            } catch (error) {
+                document.getElementById('sampleComparisonStatus').textContent = error.message;
+                console.error('Failed to load model checkpoints', error);
+            }
+        }
+        loadModels();
+
+        function updateComparisonSlotVisibility() {
+            const count = Number(document.getElementById('compareSampleCount').value);
+            document.querySelector('[data-compare-slot="3"]').hidden = count === 2;
+        }
+
+        function renderSampleComparisonResult(data, preset, modelName) {
+            const metrics = data.metrics;
+            return `<article class="sample-result-card">
+                <div class="sample-result-name" title="${escapeHTML(data.design_name)}">${escapeHTML(data.design_name)}</div>
+                <div class="sample-result-model">${escapeHTML(modelName)}</div>
+                <div class="sample-result-metrics">
+                    <div><span>Mean PCC</span><strong>${metrics.mean_pcc.toFixed(4)}</strong></div>
+                    <div><span>Hotspot F1 · top 5%</span><strong>${(metrics.mean_hotspot_f1_top5pct * 100).toFixed(1)}%</strong></div>
+                    <div><span>Mean MAE</span><strong>${metrics.mae.toFixed(4)}</strong></div>
+                    <div><span>Mean NMSE</span><strong>${metrics.mean_nmse.toFixed(4)}</strong></div>
+                </div>
+                <div class="sample-result-maps">
+                    <figure>Predicted H utilization<img alt="Predicted horizontal utilization for ${escapeHTML(data.design_name)}" src="data:image/png;base64,${data.images.pred_h}"></figure>
+                    <figure>Predicted V utilization<img alt="Predicted vertical utilization for ${escapeHTML(data.design_name)}" src="data:image/png;base64,${data.images.pred_v}"></figure>
+                </div>
+                <button class="table-action sample-result-link" type="button" data-analyze-file="${escapeHTML(preset)}" data-model-name="${escapeHTML(modelName)}">Open full analysis</button>
+            </article>`;
+        }
+
+        async function runSampleComparison() {
+            const count = Number(document.getElementById('compareSampleCount').value);
+            const jobs = [];
+            for (let index = 1; index <= count; index += 1) {
+                const preset = document.getElementById(`comparePreset${index}`).value;
+                const modelName = document.getElementById(`compareModel${index}`).value;
+                if (!preset || !modelName) {
+                    document.getElementById('sampleComparisonStatus').textContent = `Choose a sample and model for Sample ${index}.`;
+                    return;
+                }
+                jobs.push({ preset, modelName });
+            }
+
+            const button = document.getElementById('runSampleComparison');
+            const results = document.getElementById('sampleComparisonResults');
+            button.disabled = true;
+            results.innerHTML = '';
+            try {
+                for (let index = 0; index < jobs.length; index += 1) {
+                    const { preset, modelName } = jobs[index];
+                    document.getElementById('sampleComparisonStatus').textContent = `Generating sample ${index + 1} of ${jobs.length}…`;
+                    const formData = new FormData();
+                    formData.append('preset', preset);
+                    formData.append('model_name', modelName);
+                    const response = await fetch('/api/predict', { method: 'POST', body: formData });
+                    const data = await response.json();
+                    if (!response.ok || data.error) throw new Error(data.error || `Prediction failed for ${preset}`);
+                    results.insertAdjacentHTML('beforeend', renderSampleComparisonResult(data, preset, modelName));
+                }
+                document.getElementById('sampleComparisonStatus').textContent = `Compared ${jobs.length} samples with the selected checkpoints.`;
+            } catch (error) {
+                document.getElementById('sampleComparisonStatus').textContent = error.message;
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        document.getElementById('compareSampleCount').addEventListener('change', updateComparisonSlotVisibility);
+        document.getElementById('runSampleComparison').addEventListener('click', runSampleComparison);
+        updateComparisonSlotVisibility();
+
+        document.getElementById('sampleSearch').addEventListener('input', () => { samplePage = 0; renderSampleLibrary(); });
+        document.getElementById('sampleFamilyFilter').addEventListener('change', () => { samplePage = 0; renderSampleLibrary(); });
+        document.getElementById('samplePrevious').addEventListener('click', () => { samplePage -= 1; renderSampleLibrary(); });
+        document.getElementById('sampleNext').addEventListener('click', () => { samplePage += 1; renderSampleLibrary(); });
+        document.getElementById('comparisonSearch').addEventListener('input', renderComparisonRows);
+        document.getElementById('comparisonFamilyFilter').addEventListener('change', renderComparisonRows);
+        pageLinks.forEach((link) => {
+            if (link.dataset.pageTarget === 'comparison') link.addEventListener('click', updateComparisonSlotVisibility);
+        });
+
+        document.addEventListener('click', (event) => {
+            const analyzeButton = event.target.closest('[data-analyze-file]');
+            if (!analyzeButton) return;
+            presetSelect.value = analyzeButton.dataset.analyzeFile;
+            if (analyzeButton.dataset.modelName) analysisModelSelect.value = analyzeButton.dataset.modelName;
+            fileInput.value = '';
+            showPage('analysis');
+            runBtn.click();
+        });
 
         runBtn.addEventListener('click', async () => {
             const preset = presetSelect.value;
@@ -626,11 +1637,13 @@
             loadingView.classList.remove('hidden');
 
             const formData = new FormData();
+            const modelName = analysisModelSelect.value;
             if (file) {
                 formData.append('file', file);
             } else {
                 formData.append('preset', preset);
             }
+            if (modelName) formData.append('model_name', modelName);
 
             try {
                 const res = await fetch('/api/predict', {
@@ -652,7 +1665,7 @@
                 document.getElementById('valMae').textContent = data.metrics.mae.toFixed(4);
                 document.getElementById('valNmse').textContent = data.metrics.mean_nmse.toFixed(4);
                 document.getElementById('latencyBadge').textContent = data.latency_ms.toFixed(1) + " ms";
-                document.getElementById('currentDesignLabel').textContent = "Design: " + data.design_name;
+                document.getElementById('currentDesignLabel').textContent = `Design: ${data.design_name} · Model: ${data.model_name || modelName || 'default checkpoint'}`;
 
                 // Render Heatmaps
                 document.getElementById('imgGtH').src = "data:image/png;base64," + data.images.gt_h;
